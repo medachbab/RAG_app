@@ -1,0 +1,5 @@
+
+    Jenkins is an open-source automation server widely used in DevOps for implementing Continuous Integration (CI) and Continuous Delivery (CD). It helps developers automate the process of building, testing, and deploying applications, ensuring faster and more reliable software delivery.
+    Originally developed as a tool called Hudson, Jenkins was created in Java and is now one of the most popular CI/CD tools in the DevOps ecosystem.
+
+    
