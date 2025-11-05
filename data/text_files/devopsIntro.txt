@@ -1,16 +1,15 @@
- 
-        Introduction to DevOps
-        DevOps is a combination of two words — “Development” and “Operations” — representing a cultural, philosophical, and technical movement that aims to bridge the gap between software development teams (who write the code) and IT operations teams (who deploy and maintain the systems).
-        The main goal of DevOps is to deliver software faster, more reliably, and with higher quality by fostering collaboration, automation, and continuous improvement throughout the entire software development lifecycle (SDLC).  
-        Key Principles:
-            -Collaboration and Communication:
-            Developers and operations teams work closely together instead of in isolated silos.
-            -Automation:
-            Repetitive tasks such as testing, integration, deployment, and monitoring are automated to improve speed and reduce human error.
-            -Continuous Integration and Continuous Delivery (CI/CD):
-            Code changes are frequently merged, tested, and deployed automatically, ensuring that software is always in a release-ready state.
-            -Infrastructure as Code (IaC):
-            System infrastructure is managed and provisioned using code (e.g., Terraform, Ansible) for consistency and scalability.
-            -Monitoring and Feedback:
-            Continuous monitoring of applications and infrastructure provides feedback for faster problem resolution and performance improvement.      
+Introduction to DevOps
+DevOps is a combination of two words — “Development” and “Operations” — representing a cultural, philosophical, and technical movement that aims to bridge the gap between software development teams (who write the code) and IT operations teams (who deploy and maintain the systems).
+The main goal of DevOps is to deliver software faster, more reliably, and with higher quality by fostering collaboration, automation, and continuous improvement throughout the entire software development lifecycle (SDLC).  
+Key Principles:
+    -Collaboration and Communication:
+    Developers and operations teams work closely together instead of in isolated silos.
+    -Automation:
+    Repetitive tasks such as testing, integration, deployment, and monitoring are automated to improve speed and reduce human error.
+    -Continuous Integration and Continuous Delivery (CI/CD):
+    Code changes are frequently merged, tested, and deployed automatically, ensuring that software is always in a release-ready state.
+    -Infrastructure as Code (IaC):
+    System infrastructure is managed and provisioned using code (e.g., Terraform, Ansible) for consistency and scalability.
+    -Monitoring and Feedback:
+    Continuous monitoring of applications and infrastructure provides feedback for faster problem resolution and performance improvement.      
     
