@@ -9,15 +9,19 @@ def load_all_documents(data_dir: str)-> List[Any]:
     this function load all PDF/TXT/CSV/Excel/word/Json files in the data directory and convert them to document datastructure
     """
     
-    data_path=Path(data_dir).resolve()
+    data_path = Path(data_dir).resolve()
     logging.debug(f"data path: {data_path}")
+    print(f"2----------------------------------------{data_path}")
+    #data_path=data_dir
     all_documents = []
 
     #pdf files: 
     pdf_files = list(data_path.glob("**/*.pdf"))
     logging.info(f"number of pdf files found: {len(pdf_files)} \npdf files: {[str(f) for f in pdf_files]}")
+    print(f"number of pdf files found: {len(pdf_files)} files")
     for pdf_file in pdf_files:
         logging.debug(f"loading pdf:{pdf_file.name}")
+        print(f"loading pdf:{pdf_file.name}")
         try:
             loader=PyPDFLoader(str(pdf_file))
             documents=loader.load()
@@ -31,7 +35,7 @@ def load_all_documents(data_dir: str)-> List[Any]:
             logging.info(f"loaded {len(documents)} pages")
         except Exception as e:
             logging.error(f"error loading pdf files:{e}")
-    logging.info(f"Total of loaded documents:{len(documents)}")
+    logging.info(f"Total of loaded documents:{len(all_documents)}")
 
     #txt files: 
     txt_files = list(data_path.glob("**/*.txt"))
@@ -51,7 +55,7 @@ def load_all_documents(data_dir: str)-> List[Any]:
             logging.info(f"loaded {len(documents)} pages")
         except Exception as e:
             logging.error(f"error loading text files:{e}")
-    logging.info(f"Total of loaded documents:{len(documents)}")
+    logging.info(f"Total of loaded documents:{len(all_documents)}")
 
     #CSV files:
     csv_files = list(data_path.glob("**/*.csv"))
@@ -71,7 +75,7 @@ def load_all_documents(data_dir: str)-> List[Any]:
             print(f"loaded {len(documents)} pages")
         except Exception as e:
             print(f"error loading csv files:{e}")
-    print(f"Total of loaded documents:{len(documents)}")
+    print(f"Total of loaded documents:{len(all_documents)}")
     
     #excel files:
     xls_files = list(data_path.glob("**/*.xls")) + list(data_path.glob("**/*.xlsx"))
@@ -91,7 +95,7 @@ def load_all_documents(data_dir: str)-> List[Any]:
             print(f"loaded {len(documents)} pages")
         except Exception as e:
             print(f"error loading xls/xlsx files:{e}")
-    print(f"Total of loaded documents:{len(documents)}")
+    print(f"Total of loaded documents:{len(all_documents)}")
 
     #word files:
 
