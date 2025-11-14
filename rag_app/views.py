@@ -14,6 +14,7 @@ from pathlib import Path
 #importing the modular classes in our src folder:
 from src.search import RAGSearch
 from src.data_loader import load_all_documents
+from src.postgres_loader import load_products_from_postgres
 from src.vectorStore import FaissVectorStore
 
 
@@ -24,7 +25,7 @@ def rag_query(request):
     POST JSON: { "query": "text", "top_k": 3 }
     """
     try:
-        rag_search=RAGSearch()
+        rag_search=RAGSearch(persist_dir="faiss_store_3")
     except Exception as e:
         logging.exception(f"exception in initializing RAGSearch instance: {e}")
         rag_search=None
@@ -91,3 +92,31 @@ class UploadAndIndexView(View):
         except Exception as e:
             logging.exception("File upload or indexing error")
             return JsonResponse({'error': f"Processing failed: {e}"}, status=500)
+@method_decorator(csrf_exempt, name='dispatch')
+class IndexProductsFromPostgresView(View):
+    """
+    Fetch products from PostgreSQL and index them into FAISS.
+    """
+    def post(self, request):
+        try:
+
+            docs = load_products_from_postgres()
+            if not docs:
+                return JsonResponse({'error': 'No products found in database'}, status=404)
+
+            vector_store = FaissVectorStore(persist_dir="faiss_store_3")
+            vector_store.build_from_documents(docs)
+
+            try:
+                rag_search = RAGSearch(persist_dir="faiss_store_3")
+            except Exception as e:
+                import logging
+                logging.exception(f"exception in initializing RAGSearch instance: {e}")
+                return JsonResponse({'error': 'RAG system not initialized'}, status=500)
+
+            return JsonResponse({'message': f'{len(docs)} products indexed successfully.'})
+
+        except Exception as e:
+            import logging
+            logging.exception("Error indexing products from PostgreSQL")
+            return JsonResponse({'error': str(e)}, status=500)

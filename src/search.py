@@ -7,7 +7,7 @@ import logging
 load_dotenv()
 
 class RAGSearch:
-    def __init__(self, persist_dir: str= "faiss_store", llm_model: str="openai/gpt-oss-20b"):
+    def __init__(self, persist_dir: str= "faiss_store_3", llm_model: str="openai/gpt-oss-20b"):
         self.persist_dir= persist_dir
         self.vectorstore= FaissVectorStore()
         #loading the index and the metadata of the faiss_store:
