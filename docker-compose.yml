@@ -1,9 +1,20 @@
 version: "3.9"
 
 services:
-  postgres:
+  web:
+    build: .
+    container_name: django_app
+    ports:
+      - "8000:8000"
+    volumes:  
+      - ./backend_django:/app
+    depends_on:
+      - postgres2
+    env_file:
+      - .env
+  postgres2:
     image: postgres:17
-    container_name: postgres_rag
+    container_name: postgres2_rag
     restart: always
     environment:
       POSTGRES_USER: rag_user
@@ -14,15 +25,17 @@ services:
     volumes:
       - postgres_data:/var/lib/postgresql/data
 
-  pgadmin:
+  pgadmin2:
     image: dpage/pgadmin4
-    container_name: pgadmin_rag
+    container_name: pgadmin2_rag
     restart: always
     environment:
       PGADMIN_DEFAULT_EMAIL: admin@admin.com
       PGADMIN_DEFAULT_PASSWORD: admin
     ports:
       - "5050:80"
+    depends_on:
+      - postgres2
 
 volumes:
   postgres_data:

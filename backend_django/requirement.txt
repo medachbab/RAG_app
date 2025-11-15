@@ -1,3 +1,4 @@
+django
 langchain
 langchain-core
 langchain-community
@@ -8,3 +9,7 @@ faiss-cpu
 chromadb
 langchain-groq
 python-dotenv
+SQLAlchemy
+psycopg2-binary
+djangorestframework
+django-cors-headers
