@@ -7,7 +7,7 @@ def load_products_from_postgres(batch_size=500) -> List[Dict]:
     """
     Fetch all products from PostgreSQL and return a list of documents suitable for RAG indexing.
     """
-    db_url = os.environ.get("DATABASE_URL", "postgresql://rag_user:rag_pass@localhost:5432/ragdb")
+    db_url = os.environ.get("DATABASE_URL", "postgresql://rag_user:rag_pass@postgres2:5432/ragdb")
     engine = create_engine(db_url)
 
     docs = []

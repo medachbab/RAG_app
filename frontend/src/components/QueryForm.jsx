@@ -31,13 +31,13 @@ export default function QueryForm() {
 
   return (
     <div className="bg-white shadow rounded-xl p-4 space-y-3">
-      <h3 className="text-lg font-semibold">Ask the RAG</h3>
+      <h3 className="text-lg font-semibold">Ask a question about a product</h3>
 
       <form onSubmit={handleSubmit} className="space-y-2">
         <textarea
           value={query}
           onChange={(e) => setQuery(e.target.value)}
-          placeholder="Ask something about your uploaded documents..."
+          placeholder="Ask something about our products..."
           rows={3}
           className="w-full rounded-md border-gray-200 focus:ring-2 focus:ring-blue-200 p-2"
         />
