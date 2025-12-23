@@ -42,7 +42,7 @@ export default function FileUpload() {
       formData.append("files", f.file);
 
       try {
-        await axios.post("http://localhost:8000/api/upload/", formData, {
+        await axios.post("postgres-chatbot-production-627a.up.railway.app/api/upload/", formData, {
           onUploadProgress: (progressEvent) => {
             const percent = Math.round(
               (progressEvent.loaded * 100) / (progressEvent.total || 1)

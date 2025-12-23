@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const API_BASE = import.meta.env.VITE_API_BASE || "http://localhost:8000";
+const API_BASE = import.meta.env.VITE_API_BASE || "https://postgres-chatbot-production-627a.up.railway.app";
 
 export const uploadFile = async (file, onProgress) => {
   const url = `${API_BASE}/api/upload/`;
