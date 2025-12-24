@@ -1,0 +1,46 @@
+---
+- name: Configure Chatbot Droplet
+  hosts: chatbot
+  become: true
+  vars_files:
+    - group_vars/all.yml
+  tasks:
+
+    - name: Install Docker using convenience script
+      become: true
+      shell: |
+        curl -fsSL https://get.docker.com | sh
+        systemctl enable docker
+        systemctl start docker
+      args:
+        executable: /bin/bash
+
+    - name: Pull backend image
+      docker_image:
+        name: "medachbab/postgres-chatbot:2.0"
+        source: pull
+
+    - name: Pull frontend image
+      docker_image:
+        name: "medachbab/chatbot-postgres-interface:1.0"
+        source: pull
+
+    - name: Run backend container
+      docker_container:
+        name: backend
+        image: "medachbab/postgres-chatbot:3.0"
+        state: started
+        restart_policy: always
+        ports:
+          - "8000:8000"
+        env: "{{ backend_env }}"
+
+    - name: Run frontend container
+      docker_container:
+        name: frontend
+        image: "medachbab/chatbot-postgres-interface:1.0"
+        state: started
+        restart_policy: always
+        ports:
+          - "5173:5173"
+        env: "{{ frontend_env }}"

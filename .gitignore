@@ -7,6 +7,9 @@ tf-digitalOcean\terraform.tfvars
 .terraform/
 terraform.tfstate
 
+#ansible vars:
+ansible/group_vars/
+
 # Python virtual environments
 venv/
 .env
