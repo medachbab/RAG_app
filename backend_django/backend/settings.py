@@ -58,7 +58,7 @@ MIDDLEWARE = [
 ]
 CORS_ALLOWED_ORIGINS = os.getenv(
     "CORS_ALLOWED_ORIGINS",
-    "http://localhost:5173, http://159.89.9.71/:5173"
+    "http://localhost:5173, http://159.89.9.71:5173"
 ).split(",")
 MEDIA_URL = "/media/"
 MEDIA_ROOT = BASE_DIR / "media"
