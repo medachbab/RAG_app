@@ -1,6 +1,12 @@
 # Node.js dependencies
 node_modules/
 
+#terrafom vars:
+tf-digitalOcean\terraform.tfvars
+*.tfvars
+.terraform/
+terraform.tfstate
+
 # Python virtual environments
 venv/
 .env
