@@ -40,7 +40,7 @@ export default function App() {
         
         {/* Header */}
         <h1 className="text-3xl font-bold text-center mb-2">
-          🔍 Image Similarity Search
+        Image Similarity Search
         </h1>
         <p className="text-center text-gray-400 mb-8">
           Upload an image and find visually similar results
