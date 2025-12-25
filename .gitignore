@@ -16,11 +16,12 @@ venv/
 vector_store/
 
 # ignore the folders i no longer use
-./data/
-./faiss_store/
-./faiss_store2/
-./media
-./ui.py
+/data/
+/faiss_store/
+/faiss_store2/
+/media/
+ui.py
+/oldFolders/
 
 # OS generated files
 .DS_Store
