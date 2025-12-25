@@ -1,0 +1,87 @@
+[
+    {
+        "id": 1,
+        "title": "LANEIGE Lip Glowy",
+        "description": "laneige lip glowy balm stocking stuffer hydrate glossy lightweight moisturize tint shea butter",
+        "category": "beauty",
+        "price": "19.00",
+        "rating": "4.7",
+        "stock": "Available",
+        "image": "https://m.media-amazon.com/images/I/618NFh2d3HL._AC_UL320_.jpg",
+        "washing_instructions": "none",
+        "shipping_info": "2-3 days",
+        "reviews": [
+            {
+                "id": 18953,
+                "product": 1,
+                "rating": 5,
+                "comment": "very satisfied",
+                "date": "2025-03-25T08:48:07.705190Z",
+                "reviewerName": "siham"
+            },
+            {
+                "id": 18954,
+                "product": 1,
+                "rating": 4,
+                "comment": "I m happy with my purchase",
+                "date": "2025-03-25T09:16:35.050308Z",
+                "reviewerName": "sihamkalach"
+            },
+            {
+                "id": 18955,
+                "product": 1,
+                "rating": 5,
+                "comment": "wooow , I'm in love",
+                "date": "2025-03-25T09:20:21.297489Z",
+                "reviewerName": "aya_inu"
+            },
+            {
+                "id": 18956,
+                "product": 1,
+                "rating": 5,
+                "comment": "I test this for the first time and it was an excelent exp :)",
+                "date": "2025-03-25T09:22:37.619089Z",
+                "reviewerName": "nada"
+            }
+        ]
+    },
+    {
+        "id": "2",
+        "title": "jacket for men",
+        "description": "Men's clothing item: N/A",
+        "category": "Mens cloths",
+        "price": "512.85",
+        "rating": "4.5",
+        "stock": "Available",
+        "image": "https://m.media-amazon.com/images/I/71yEjmBwG1L._AC_UL320_.jpg",
+         "washing_instructions": "don't wash over 30 degree it ill loose color",
+        "shipping_info": "2-3 days",
+        "reviews": [
+            {
+                "id": 18957,
+                "product": 1,
+                "rating": 5,
+                "comment": "good product",
+                "date": "2025-03-25T08:48:07.705190Z",
+                "reviewerName": "mohammed"
+            },
+            {
+                "id": 18958,
+                "product": 1,
+                "rating": 4,
+                "comment": "I received my order 3 days after the normal deadline but i recommend it",
+                "date": "2025-03-25T09:16:35.050308Z",
+                "reviewerName": "mohammed achbab"
+            },
+            {
+                "id": 18959,
+                "product": 1,
+                "rating": 2,
+                "comment": "don't buy this product the first time i washed it the color faded",
+                "date": "2025-03-25T09:20:21.297489Z",
+                "reviewerName": "user3"
+            }
+        ]
+    }
+
+]

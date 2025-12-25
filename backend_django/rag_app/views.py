@@ -16,6 +16,7 @@ from src.search import RAGSearch
 from src.data_loader import load_all_documents
 from src.postgres_loader import load_products_from_postgres
 from src.vectorStore import FaissVectorStore
+from src.jsonloader import load_products_from_json
 
 
 
@@ -119,4 +120,49 @@ class IndexProductsFromPostgresView(View):
         except Exception as e:
             import logging
             logging.exception("Error indexing products from PostgreSQL")
+            return JsonResponse({'error': str(e)}, status=500)
+
+@method_decorator(csrf_exempt, name='dispatch')
+class IndexProductsFromJSONView(View):
+    """
+    Upload a JSON file and index its product content into FAISS.
+    """
+    def post(self, request):
+        # 1. Get the file from the request
+        uploaded_file = request.FILES.get('file')
+        
+        if not uploaded_file:
+            return JsonResponse({'error': 'No JSON file provided'}, status=400)
+
+        try:
+            # 2. Saving the file temporarily to disk
+            media_root_path = Path(settings.MEDIA_ROOT)
+            media_root_path.mkdir(parents=True, exist_ok=True)
+            
+            file_name = default_storage.save(uploaded_file.name, uploaded_file)
+            full_path = str(media_root_path / file_name)
+
+            docs = load_products_from_json(full_path)
+            
+            if not docs:
+                return JsonResponse({'error': 'No valid product data found in JSON'}, status=400)
+
+            vector_store = FaissVectorStore(persist_dir="faiss_store_3")
+            vector_store.build_from_documents(docs)
+
+            default_storage.delete(file_name)
+
+            try:
+                RAGSearch(persist_dir="faiss_store_3")
+            except Exception as e:
+                logging.exception(f"Error re-initializing RAGSearch: {e}")
+                return JsonResponse({'error': 'Indexing succeeded but RAG failed to reload'}, status=500)
+
+            return JsonResponse({
+                'message': f'File {uploaded_file.name} processed.',
+                'products_indexed': len(docs)
+            })
+
+        except Exception as e:
+            logging.exception("Error indexing products from JSON")
             return JsonResponse({'error': str(e)}, status=500)
