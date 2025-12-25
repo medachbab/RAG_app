@@ -15,6 +15,13 @@ venv/
 .env
 vector_store/
 
+# ignore the folders i no longer use
+./data/
+./faiss_store/
+./faiss_store2/
+./media
+./ui.py
+
 # OS generated files
 .DS_Store
 Thumbs.db
