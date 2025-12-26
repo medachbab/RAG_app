@@ -1,18 +1,32 @@
 version: "3.9"
 
-services:
+services:    
   ecommerce-backend:
-    image: siham20/backend
+    image: siham20/ecommerce-backend:latest
     container_name: ecommerce-backend
+    restart: always
+    env_file:
+      - .env
+    depends_on:
+      - postgres
     ports:
       - "8000:8000"
+    volumes:
+      - static_volume:/app/static
+      - media_volume:/app/static/images
+    command: >
+      sh -c "
+      python manage.py migrate &&
+      python manage.py collectstatic --noinput &&
+      python manage.py createsuperuser --noinput || true &&
+      python manage.py runserver 0.0.0.0:8000"
+
     networks:
       - app-network
-    depends_on:
-      - ecommerce-frontend
+
 
   ecommerce-frontend:
-    image: image-e-commerce-front
+    image: medachbab/image-e-commerce-front
     container_name: ecommerce-frontend
     ports:
       - "5173:5173"
@@ -22,7 +36,7 @@ services:
       - app-network
 
   chatbot-backend:
-    image: medachbab/postgres-chatbot:4.0
+    image: medachbab/postgres-chatbot:5.0
     container_name: chatbot-backend
     ports:
       - "8001:8000"
@@ -30,11 +44,13 @@ services:
       - .env
     networks:
       - app-network
+    volumes:
+      - chatbot_faiss_data:/app/faiss_store_3
     depends_on:
       - chatbot-frontend
 
   chatbot-frontend:
-    image: medachbab/chatbot-postgres-interface:1.0
+    image: medachbab/chatbot-postgres-interface:3.0
     container_name: chatbot-frontend
     ports:
       - "5174:5173"
@@ -50,22 +66,53 @@ services:
       - "8002:8000"
     env_file:
       - .env
+    volumes:
+      - search_faiss_data:/app/data   
     networks:
       - app-network
     depends_on:
       - search-frontend
 
   search-frontend:
-    image: medachbab/microservice-search-similar-images-frontend:1.0
+    image: medachbab/microservice-search-similar-images-frontend:3.0
     container_name: search-frontend
     ports:
       - "5175:5173"
+    networks:
+      - app-network
     env_file:
       - .env
 
+  
+  postgres:
+    image: postgres:15
+    container_name: fashionista-db
+    restart: always
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: fashionista20
+      POSTGRES_DB: fashionista
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+    networks:
+      - app-network
+  
+  recommendation-service: 
+    image: siham20/recommendation-service
+    container_name: service-recommendation
+    ports:
+      - "8003:8000"  
     networks:
       - app-network
 
 networks:
   app-network:
     driver: bridge
+volumes:
+  postgres_data:
+  chatbot_faiss_data:
+  search_faiss_data:
+  static_volume:
+  media_volume:

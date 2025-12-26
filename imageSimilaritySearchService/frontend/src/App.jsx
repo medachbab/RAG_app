@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { searchImage } from "./api";
+import Navbar from "./components/Navbar";
 
 export default function App() {
   const [file, setFile] = useState(null);
@@ -35,27 +36,29 @@ export default function App() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-900 via-gray-800 to-black text-white flex items-center justify-center p-6">
-      <div className="w-full max-w-4xl bg-gray-900/80 backdrop-blur rounded-2xl shadow-xl p-8">
+    <div className="min-h-screen bg-gradient-to-br from-slate-50 to-white text-gray-800">
+      <Navbar />
+      <div className="pt-24 flex items-center justify-center p-6">
+        <div className="w-full max-w-4xl bg-white/90 backdrop-blur rounded-2xl shadow-xl p-8 border border-gray-200">
         
         {/* Header */}
-        <h1 className="text-3xl font-bold text-center mb-2">
+        <h1 className="text-3xl font-bold text-center mb-2 text-gray-900">
         Image Similarity Search
         </h1>
-        <p className="text-center text-gray-400 mb-8">
+        <p className="text-center text-gray-600 mb-8">
           Upload an image and find visually similar results
         </p>
 
         {/* Upload */}
         <div className="flex flex-col items-center gap-4">
-          <label className="w-full max-w-md cursor-pointer border-2 border-dashed border-gray-600 rounded-xl p-6 text-center hover:border-indigo-500 transition">
+          <label className="w-full max-w-md cursor-pointer border-2 border-dashed border-gray-300 rounded-xl p-6 text-center hover:border-blue-500 transition">
             <input
               type="file"
               className="hidden"
               accept="image/*"
               onChange={handleFileChange}
             />
-            <p className="text-gray-300">
+            <p className="text-gray-600">
               Click to upload or drag & drop an image
             </p>
           </label>
@@ -64,20 +67,20 @@ export default function App() {
             <img
               src={preview}
               alt="Preview"
-              className="w-40 h-40 object-cover rounded-xl border border-gray-700"
+              className="w-40 h-40 object-cover rounded-xl border border-gray-200"
             />
           )}
 
           <button
             onClick={handleSearch}
             disabled={!file || loading}
-            className="px-6 py-3 bg-indigo-600 hover:bg-indigo-700 disabled:bg-gray-600 rounded-xl font-semibold transition"
+            className="px-6 py-3 bg-blue-600 hover:bg-blue-700 disabled:bg-gray-300 text-white rounded-xl font-semibold transition"
           >
             {loading ? "Searching..." : "Search"}
           </button>
 
           {error && (
-            <p className="text-red-400 mt-2">{error}</p>
+            <p className="text-red-600 mt-2">{error}</p>
           )}
         </div>
 
@@ -92,7 +95,7 @@ export default function App() {
               {results.map((r, idx) => (
                 <div
                   key={idx}
-                  className="bg-gray-800 rounded-xl p-4 hover:scale-[1.02] transition"
+                  className="bg-white rounded-xl p-4 border border-gray-200 hover:shadow-lg transform hover:scale-[1.02] transition"
                 >
                   <img
                     src={r.image}
@@ -102,12 +105,12 @@ export default function App() {
                       e.target.style.display = "none";
                     }}
                   />
-                  <p className="text-sm text-gray-400 break-all">
+                  <p className="text-sm text-gray-600 break-all">
                     {r.image}
                   </p>
-                  <p className="text-sm mt-2">
+                  <p className="text-sm mt-2 text-gray-800">
                     Similarity:{" "}
-                    <span className="font-semibold text-indigo-400">
+                    <span className="font-semibold text-blue-600">
                       {r.similarity}
                     </span>
                   </p>
@@ -118,5 +121,6 @@ export default function App() {
         )}
       </div>
     </div>
+  </div>
   );
 }

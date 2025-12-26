@@ -74,9 +74,9 @@ export default function QueryForm() {
   };
 
   return (
-    <div className="h-full flex flex-col">
+    <div className="h-full flex flex-col bg-white/80 text-gray-800">
       {/* Chat Header */}
-      <div className="p-6 border-b border-gray-700/50 flex items-center justify-between">
+      <div className="p-6 border-b border-gray-200 flex items-center justify-between bg-white/80">
         <div className="flex items-center gap-3">
           <div>
             <h3 className="text-lg font-semibold">Product Assistant</h3>
@@ -84,7 +84,7 @@ export default function QueryForm() {
         </div>
         <button
           onClick={clearChat}
-          className="px-4 py-2 rounded-lg bg-gray-800 hover:bg-gray-700 transition-colors text-sm flex items-center gap-2"
+          className="px-4 py-2 rounded-lg bg-blue-600 hover:bg-blue-700 transition-colors text-sm text-white flex items-center gap-2"
         >
           <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path>
@@ -97,14 +97,14 @@ export default function QueryForm() {
       <div className="flex-1 overflow-y-auto p-6 space-y-6 max-h-[500px]">
         {chatHistory.length === 0 ? (
           <div className="text-center py-12">
-            <div className="w-20 h-20 mx-auto rounded-full bg-gradient-to-r from-gray-800 to-gray-900 flex items-center justify-center mb-4">
+            <div className="w-20 h-20 mx-auto rounded-full bg-gradient-to-r from-blue-100 to-blue-200 flex items-center justify-center mb-4 text-blue-700">
               <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
                 <path stroke-linecap="round" stroke-linejoin="round" d="M7.5 8.25h9m-9 3H12m-9.75 1.51c0 1.6 1.123 2.994 2.707 3.227 1.129.166 2.27.293 3.423.379.35.026.67.21.865.501L12 21l2.755-4.133a1.14 1.14 0 0 1 .865-.501 48.172 48.172 0 0 0 3.423-.379c1.584-.233 2.707-1.626 2.707-3.228V6.741c0-1.602-1.123-2.995-2.707-3.228A48.394 48.394 0 0 0 12 3c-2.392 0-4.744.175-7.043.513C3.373 3.746 2.25 5.14 2.25 6.741v6.018Z" />
               </svg>
 
             </div>
             <h4 className="text-xl font-medium mb-2">Start a Conversation</h4>
-            <p className="text-gray-400 max-w-md mx-auto">
+            <p className="text-gray-600 max-w-md mx-auto">
               Ask any question about our products. I'll search through documentation and provide accurate answers with sources.
             </p>
           </div>
@@ -117,10 +117,10 @@ export default function QueryForm() {
               <div
                 className={`max-w-[80%] rounded-2xl p-4 ${
                   msg.type === 'user'
-                    ? 'bg-gradient-to-r from-blue-600 to-blue-500 text-white'
+                    ? 'bg-gradient-to-r from-blue-100 to-blue-50 text-blue-800 border border-blue-200'
                     : msg.type === 'error'
-                    ? 'bg-gradient-to-r from-red-900/30 to-red-800/30 border border-red-800/50'
-                    : 'bg-gradient-to-r from-gray-800 to-gray-900 border border-gray-700/50'
+                    ? 'bg-red-50 text-red-700 border border-red-100'
+                    : 'bg-white text-gray-800 border border-gray-200'
                 }`}
               >
                 <div className="flex items-center gap-2 mb-2">
@@ -131,7 +131,7 @@ export default function QueryForm() {
                       </svg>
                     </div>
                   )}
-                  <span className="text-xs opacity-75">
+                  <span className="text-xs text-gray-500">
                     {msg.type === 'user' ? 'You' : msg.type === 'bot' ? 'Assistant' : 'System'} • {msg.timestamp}
                   </span>
                 </div>
@@ -144,25 +144,25 @@ export default function QueryForm() {
                       <svg className="w-4 h-4 text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path>
                       </svg>
-                      <span className="text-sm font-medium text-gray-300">Sources ({msg.sources.length})</span>
+                      <span className="text-sm font-medium text-gray-700">Sources ({msg.sources.length})</span>
                     </div>
                     <div className="grid grid-cols-1 gap-2">
                       {msg.sources.map((src, i) => (
                         <div
                           key={i}
-                          className="p-3 rounded-lg bg-gray-900/50 border border-gray-700/30"
+                          className="p-3 rounded-lg bg-white border border-gray-200"
                         >
                           <div className="flex items-center justify-between mb-2">
                             <span className="text-xs px-2 py-1 rounded-full bg-blue-500/20 text-blue-300">
                               Source {i + 1}
                             </span>
                             {src.distance && (
-                              <span className="text-xs text-gray-400">
+                              <span className="text-xs text-gray-500">
                                 Confidence: {(1 - src.distance).toFixed(2)}
                               </span>
                             )}
                           </div>
-                          <p className="text-sm text-gray-300 leading-relaxed">
+                          <p className="text-sm text-gray-700 leading-relaxed">
                             {src.source.text}
                           </p>
                         </div>
@@ -178,14 +178,14 @@ export default function QueryForm() {
         {/* Loading indicator */}
         {loading && (
           <div className="flex justify-start">
-            <div className="max-w-[80%] rounded-2xl p-4 bg-gradient-to-r from-gray-800 to-gray-900 border border-gray-700/50">
+            <div className="max-w-[80%] rounded-2xl p-4 bg-white border border-gray-200">
               <div className="flex items-center gap-3">
                 <div className="flex space-x-1">
                   <div className="w-2 h-2 bg-blue-400 rounded-full animate-bounce"></div>
                   <div className="w-2 h-2 bg-blue-400 rounded-full animate-bounce delay-75"></div>
                   <div className="w-2 h-2 bg-blue-400 rounded-full animate-bounce delay-150"></div>
                 </div>
-                <span className="text-sm text-gray-400">Searching product database...</span>
+                <span className="text-sm text-gray-600">Searching product database...</span>
               </div>
             </div>
           </div>
@@ -194,11 +194,11 @@ export default function QueryForm() {
       </div>
 
       {/* Input Area */}
-      <div className="p-6 border-t border-gray-700/50 bg-gray-900/30">
+      <div className="p-6 border-t border-gray-200 bg-white/80">
         <form onSubmit={handleSubmit} className="space-y-4">
           {error && (
-            <div className="p-3 rounded-lg bg-red-900/20 border border-red-800/50">
-              <p className="text-sm text-red-300 flex items-center gap-2">
+            <div className="p-3 rounded-lg bg-red-50 border border-red-100">
+              <p className="text-sm text-red-700 flex items-center gap-2">
                 <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
                 </svg>
@@ -215,7 +215,7 @@ export default function QueryForm() {
                   onChange={(e) => setQuery(e.target.value)}
                   placeholder="Ask about product features, specifications, or comparisons..."
                   rows={2}
-                  className="w-full rounded-xl border border-gray-600 bg-gray-800/50 text-white placeholder-gray-500 p-4 pr-12 focus:ring-2 focus:ring-blue-500 focus:border-transparent resize-none"
+                  className="w-full rounded-xl border border-gray-200 bg-white text-gray-800 placeholder-gray-400 p-4 pr-12 focus:ring-2 focus:ring-blue-500 focus:border-transparent resize-none"
                   disabled={loading}
                 />
                 <div className="absolute right-3 bottom-3">
@@ -239,13 +239,13 @@ export default function QueryForm() {
             </div>
             
             <div className="flex-shrink-0">
-              <div className="bg-gray-800/50 rounded-lg p-3">
-                <label className="text-xs text-gray-400 block mb-1">RETRIEVAL COUNT</label>
+              <div className="bg-gray-100 rounded-lg p-3">
+                <label className="text-xs text-gray-600 block mb-1">RETRIEVAL COUNT</label>
                 <div className="flex items-center gap-2">
                   <button
                     type="button"
                     onClick={() => setTopK(Math.max(1, topK - 1))}
-                    className="w-7 h-7 rounded-md bg-gray-700 hover:bg-gray-600 flex items-center justify-center"
+                    className="w-7 h-7 rounded-md bg-white border border-gray-200 hover:bg-gray-50 flex items-center justify-center"
                     disabled={topK <= 1}
                   >
                     <span className="text-sm">−</span>
@@ -256,12 +256,12 @@ export default function QueryForm() {
                     max={10}
                     value={topK}
                     onChange={(e) => setTopK(Math.min(10, Math.max(1, parseInt(e.target.value) || 1)))}
-                    className="w-12 text-center bg-transparent border-0 text-white"
+                    className="w-12 text-center bg-transparent border-0 text-gray-800"
                   />
                   <button
                     type="button"
                     onClick={() => setTopK(Math.min(10, topK + 1))}
-                    className="w-7 h-7 rounded-md bg-gray-700 hover:bg-gray-600 flex items-center justify-center"
+                    className="w-7 h-7 rounded-md bg-white border border-gray-200 hover:bg-gray-50 flex items-center justify-center"
                     disabled={topK >= 10}
                   >
                     <span className="text-sm">+</span>
