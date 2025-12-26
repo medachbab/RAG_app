@@ -7,7 +7,7 @@ from dotenv import load_dotenv
 load_dotenv()
 app = FastAPI(title="Image Similarity Search API")
 
-allowed_origins = os.getenv("Search_FRONTEND_URL", "http://159.89.9.71:5174,http://localhost:5174").split(",")
+allowed_origins = os.getenv("Search_FRONTEND_URL", "http://159.89.9.71:5174,http://localhost:5173").split(",")
 
 app.add_middleware(
     CORSMiddleware,

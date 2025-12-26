@@ -1,0 +1,71 @@
+version: "3.9"
+
+services:
+  ecommerce-backend:
+    image: siham20/backend
+    container_name: ecommerce-backend
+    ports:
+      - "8000:8000"
+    networks:
+      - app-network
+    depends_on:
+      - ecommerce-frontend
+
+  ecommerce-frontend:
+    image: image-e-commerce-front
+    container_name: ecommerce-frontend
+    ports:
+      - "5173:5173"
+    env_file:
+      - .env
+    networks:
+      - app-network
+
+  chatbot-backend:
+    image: medachbab/postgres-chatbot:4.0
+    container_name: chatbot-backend
+    ports:
+      - "8001:8000"
+    env_file:
+      - .env
+    networks:
+      - app-network
+    depends_on:
+      - chatbot-frontend
+
+  chatbot-frontend:
+    image: medachbab/chatbot-postgres-interface:1.0
+    container_name: chatbot-frontend
+    ports:
+      - "5174:5173"
+    env_file:
+      - .env
+    networks:
+      - app-network
+
+  search-backend:
+    image: medachbab/microservice-search-image-backend:1.0
+    container_name: search-backend
+    ports:
+      - "8002:8000"
+    env_file:
+      - .env
+    networks:
+      - app-network
+    depends_on:
+      - search-frontend
+
+  search-frontend:
+    image: medachbab/microservice-search-similar-images-frontend:1.0
+    container_name: search-frontend
+    ports:
+      - "5175:5173"
+    env_file:
+      - .env
+
+    networks:
+      - app-network
+
+networks:
+  app-network:
+    driver: bridge
