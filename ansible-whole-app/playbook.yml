@@ -1,0 +1,29 @@
+- name: Deploy ecommerce app with Docker Compose
+  hosts: ecommerce
+  become: true
+
+  roles:
+    - docker
+
+  tasks:
+    - name: Create app directory
+      file:
+        path: /app/ecommerce
+        state: directory
+
+    - name: Copy docker-compose file
+      copy:
+        src: ../docker-compose.yml
+        dest: /app/ecommerce/docker-compose.yml
+
+    - name: Copy .env file
+      copy:
+        src: ../.env
+        dest: /app/ecommerce/.env
+
+    - name: Start application
+      shell: |
+        docker compose pull
+        docker compose up -d
+      args:
+        chdir: /app/ecommerce

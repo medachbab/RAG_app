@@ -1,0 +1,27 @@
+- name: Update apt cache
+  apt:
+    update_cache: yes
+
+- name: Install required packages
+  apt:
+    name:
+      - ca-certificates
+      - curl
+      - gnupg
+      - lsb-release
+    state: present
+
+- name: Install Docker
+  shell: |
+    curl -fsSL https://get.docker.com | sh
+
+- name: Enable Docker
+  systemd:
+    name: docker
+    enabled: yes
+    state: started
+
+- name: Install Docker Compose plugin
+  apt:
+    name: docker-compose-plugin
+    state: present
