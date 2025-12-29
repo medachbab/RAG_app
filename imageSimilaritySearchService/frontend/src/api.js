@@ -4,7 +4,7 @@ export async function searchImage(file) {
   const formData = new FormData();
   formData.append("file", file);
 
-  const res = await fetch(`${BACKEND_URL}/search?k=7`, {
+  const res = await fetch(`${BACKEND_URL}/search?k=20`, {
     method: "POST",
     body: formData,
   });

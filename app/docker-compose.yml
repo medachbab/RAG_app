@@ -1,0 +1,47 @@
+version: "3.9"
+
+services:
+  db:
+    image: postgres:15
+    container_name: fashionista-db
+    restart: always
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: fashionista20
+      POSTGRES_DB: fashionista
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  web:
+    image: siham20/ecommerce-backend:latest
+    container_name: fashionista-backend
+    restart: always
+    env_file:
+      - .env
+    depends_on:
+      db:
+        condition: service_healthy
+    ports:
+      - "8000:8000"
+    volumes:
+      - static_volume:/app/static
+      - media_volume:/app/static/images
+    command: >
+      sh -c "
+      python manage.py migrate &&
+      python manage.py collectstatic --noinput &&
+      python manage.py createsuperuser --noinput || true &&
+      python manage.py runserver 0.0.0.0:8000
+      "
+
+volumes:
+  postgres_data:
+  static_volume:
+  media_volume:

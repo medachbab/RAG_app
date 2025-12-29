@@ -6,7 +6,7 @@
     - docker
 
   tasks:
-    - name: Create app directory
+    - name: Ensure app directory exists
       file:
         path: /app/ecommerce
         state: directory
@@ -15,14 +15,37 @@
       copy:
         src: ../docker-compose.yml
         dest: /app/ecommerce/docker-compose.yml
+        force: yes
 
     - name: Copy .env file
       copy:
         src: ../.env
         dest: /app/ecommerce/.env
+        force: yes
 
-    - name: Start application
+    - name: Sync ecommerce directory
+      synchronize:
+        src: ../ecommerce/
+        dest: /app/ecommerce/ecommerce/
+        recursive: yes
+        delete: yes
+
+    - name: Sync ecomApp directory
+      synchronize:
+        src: ../ecomApp/
+        dest: /app/ecommerce/ecomApp/
+        recursive: yes
+        delete: yes
+    - name: Sync recommendation directory
+      synchronize:
+        src: ../recomendationApp/
+        dest: /app/ecommerce/recomendationApp/
+        recursive: yes
+        delete: yes
+
+    - name: Start application again
       shell: |
+        docker compose down -v
         docker compose pull
         docker compose up -d
       args:

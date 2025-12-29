@@ -2,7 +2,7 @@ version: "3.9"
 
 services:    
   ecommerce-backend:
-    image: siham20/ecommerce-backend:latest
+    image: siham20/ecommerce-backend
     container_name: ecommerce-backend
     restart: always
     env_file:
@@ -14,6 +14,8 @@ services:
     volumes:
       - static_volume:/app/static
       - media_volume:/app/static/images
+      - ./ecomApp:/app/ecomApp
+      - ./ecommerce:/app/ecommerce
     command: >
       sh -c "
       python manage.py migrate &&
@@ -60,21 +62,21 @@ services:
       - app-network
 
   search-backend:
-    image: medachbab/microservice-search-image-backend:1.0
+    image: medachbab/search-image-backend
     container_name: search-backend
     ports:
       - "8002:8000"
     env_file:
       - .env
     volumes:
-      - search_faiss_data:/app/data   
+      - search_faiss_data:/app/data  
     networks:
       - app-network
     depends_on:
       - search-frontend
 
   search-frontend:
-    image: medachbab/microservice-search-similar-images-frontend:3.0
+    image: medachbab/search-image-frontend
     container_name: search-frontend
     ports:
       - "5175:5173"
@@ -104,6 +106,8 @@ services:
     container_name: service-recommendation
     ports:
       - "8003:8000"  
+    volumes:
+      - ./recomendationApp:/app
     networks:
       - app-network
 

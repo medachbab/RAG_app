@@ -4,9 +4,9 @@ import json
 import time
 import random
 
-def scrape_amazon_mens_clothing(num_pages=4):
+def scrape_amazon_mens_clothing(num_pages=1):
     all_products = []
-    base_url = "https://www.amazon.com/s?k=jacket+for+men"
+    base_url = "https://www.amazon.com/s?k=amazon+puffer+jacket&adgrpid=82197443235&hvadid=673440924121&hvdev=c&hvlocphy=1029448&hvnetw=g&hvqmt=e&hvrand=157292365561366005&hvtargid=kwd-344620921422&hydadcr=22363_13507821&mcid=55dd5a47bc1a396b99d86b1f05105a57"
     
     # Realistic headers are CRITICAL to avoid being blocked
     headers = {
